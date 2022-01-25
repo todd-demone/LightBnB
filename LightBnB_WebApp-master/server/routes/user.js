@@ -5,9 +5,14 @@ module.exports = function(router) {
 
   // Create a new user
   router.post('/', (req, res) => {
-    req.body.password = bcrypt.hashSync(user.password, 12);
-    const text = `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;`;
-    const params = [req.body];
+    const user = req.body;
+    user.password = bcrypt.hashSync(user.password, 12);
+    const text = `
+      INSERT INTO users (name, email, password) 
+      VALUES ($1, $2, $3) 
+      RETURNING *;
+    `;
+    const params = [user];
     db.query(text, params, result => {
       const user = result.rows[0];
       if (!user) {
@@ -17,15 +22,17 @@ module.exports = function(router) {
       req.session.userId = user.id;
       res.send("🤗");
     })
-    .catch(e => {
-      res.send(e);
-    });
+    .catch(e => res.send(e));
   });
 
 
   router.post('/login', (req, res) => {
     const {email, password} = req.body;
-    const text = `SELECT * FROM users WHERE email=$1;`;
+    const text = `
+      SELECT * 
+      FROM users 
+      WHERE email=$1;
+    `;
     const params = [email.toLowerCase()];
     db.query(text, params, result => {
       const user = result.rows[0];
@@ -36,9 +43,7 @@ module.exports = function(router) {
       req.session.userId = user.id;
       res.send({user: {name: user.name, email: user.email, id: user.id}});
     })
-    .catch(e => {
-      res.send(e);
-    });
+    .catch(e => res.send(e));
   });
   
 
@@ -54,7 +59,11 @@ module.exports = function(router) {
       res.send({message: "not logged in"});
       return;
     }
-    const text = `SELECT * from USERS where id=$1;`;
+    const text = `
+      SELECT * 
+      FROM users
+      WHERE id=$1;
+    `;
     const params = [userId];
     db.query(text, params, (result => {
       const user = result.rows[0];
@@ -64,9 +73,7 @@ module.exports = function(router) {
       }
       res.send({user: {name: user.name, email: user.email, id: userId}});
     }))
-    .catch(e => {
-      res.send(e);
-    });
+    .catch(e => res.send(e));
   });
 
   return router;

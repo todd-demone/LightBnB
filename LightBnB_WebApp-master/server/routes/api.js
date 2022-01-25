@@ -44,13 +44,13 @@ module.exports = function(router) {
     }
 
     text += `
-      GROUP BY properties.id
+      GROUP BY properties.id 
     `;
 
     if (options.minimum_rating) {
       params.push(Number(options.minimum_rating));
       text += `
-      HAVING avg(property_reviews.rating) >= $${params.length} 
+        HAVING avg(property_reviews.rating) >= $${params.length} 
       `;
     }
 
@@ -64,9 +64,7 @@ module.exports = function(router) {
       const properties = result.rows;
       res.send({properties});
     })
-    .catch(e => {
-      res.send(e);
-    });  
+    .catch(e => res.send(e));  
 
   });
 
@@ -93,9 +91,7 @@ module.exports = function(router) {
       const reservations = result.rows;
       res.send({reservations});
     })
-    .catch(e => {
-      res.send(e);
-    });
+    .catch(e => res.send(e));
   });
 
   router.post('/properties', (req, res) => {
@@ -111,21 +107,23 @@ module.exports = function(router) {
       propertyFieldsAndValues.push([key, property[key]]);
     }
 
-    // add text to the fields portion and values portion of queryString; add params to params
+    // Add text to the fields portion of queryString.
+    // Add text to the values portion of queryString.
+    // Add parameters to params variable.
     for (let i = 0; i < propertyFieldsAndValues.length; i++) {
-      //  add the field (eg city) to fieldsString
+      //  add the field (e.g., city) to fieldsString
       fieldsString += `${propertyFieldsAndValues[i][0]}`;
 
-      // add a comma unless this is the last field in the array
+      // add a comma unless this is the last item in the array
       if (i < propertyFieldsAndValues.length - 1) fieldsString += `, `;
 
-      // add the value (eg 'Vancouver') to params array
+      // add the value (e.g., 'Vancouver') to the params array
       params.push(propertyFieldsAndValues[i][1]);
 
       // add a  placeholder (eg $1) to paramsString
       valuesString += `$${params.length}`;
 
-      // add a comma unless this is the last field in the array
+      // add a comma unless this is the last item in the array
       if (i < propertyFieldsAndValues.length - 1) valuesString += `, `;
     }
 
@@ -145,9 +143,7 @@ module.exports = function(router) {
       const property = result.rows[0];
       res.send(property);
     })
-    .catch(e => {
-      res.send(e);
-    });
+    .catch(e => res.send(e));
   });
 
   return router;
