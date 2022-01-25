@@ -1,6 +1,4 @@
 const { Pool } = require('pg');
-const properties = require('./json/properties.json');
-const users = require('./json/users.json');
 
 const pool = new Pool({
   user: 'vagrant',
@@ -64,7 +62,11 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-  const queryString = `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;`;
+  const queryString = `
+    INSERT INTO users (name, email, password) 
+    VALUES ($1, $2, $3) 
+    RETURNING *;
+  `;
   const queryParams = [user.name, user.email, user.password];
   
   return pool
@@ -190,9 +192,50 @@ exports.getAllProperties = getAllProperties;
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function(property) {
-  const propertyId = Object.keys(properties).length + 1;
-  property.id = propertyId;
-  properties[propertyId] = property;
-  return Promise.resolve(property);
+  
+  const queryParams = [];
+  let propertyFieldsAndValues = [];
+  let fieldsString = ``;
+  let valuesString = ``;
+
+  // convert property object to an array of arrays [[field1, value1], [field2, value2],...]
+  for (const key in property) {
+    propertyFieldsAndValues.push([key, property[key]]);
+  }
+
+  // add text to the fields portion and values portion of queryString; add params to queryParams
+  for (let i = 0; i < propertyFieldsAndValues.length; i++) {
+    //  add the field (eg city) to fieldsString
+    fieldsString += `${propertyFieldsAndValues[i][0]}`;
+
+    // add a comma unless this is the last field in the array
+    if (i < propertyFieldsAndValues.length - 1) fieldsString += `, `;
+
+    // add the value (eg 'Vancouver') to queryParams array
+    queryParams.push(propertyFieldsAndValues[i][1]);
+
+    // add a  placeholder (eg $1) to paramsString
+    valuesString += `$${queryParams.length}`;
+
+    // add a comma unless this is the last field in the array
+    if (i < propertyFieldsAndValues.length - 1) valuesString += `, `;
+  }
+
+  const queryString = `
+    INSERT INTO properties
+    (
+    ${fieldsString}
+    )
+    VALUES 
+    (
+    ${valuesString}
+    ) 
+    RETURNING *;
+  `;
+
+  return pool
+    .query(queryString, queryParams)
+    .then(res => res.rows[0])
+    .catch(e => console.error(e.stack));
 };
 exports.addProperty = addProperty;
