@@ -1,6 +1,8 @@
-const database = require('./database');
-const apiRoutes = require('./apiRoutes');
-const userRoutes = require('./userRoutes');
+// const database = require('./database');
+const apiRoutes = require('./routes/api.js');
+// const apiRoutes = require('./apiRoutes');
+const userRoutes = require('./routes/user.js');
+// const userRoutes = require('./userRoutes');
 
 const path = require('path');
 
@@ -20,12 +22,12 @@ app.use(bodyParser.json());
 
 // /api/endpoints
 const apiRouter = express.Router();
-apiRoutes(apiRouter, database);
+apiRoutes(apiRouter);
 app.use('/api', apiRouter);
 
 // /user/endpoints
 const userRouter = express.Router();
-userRoutes(userRouter, database);
+userRoutes(userRouter);
 app.use('/users', userRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));

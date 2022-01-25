@@ -171,8 +171,6 @@ const getAllProperties = function(options, limit = 10) {
     LIMIT $${queryParams.length};
   `;
 
-  console.log(queryString, queryParams);
-
   // This works because .then always returns a promise.
   // Even though we wrote the line return result.rows (where result.rows
   // is an array of objects), .then automatically places that value in a promise.
