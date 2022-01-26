@@ -107,23 +107,20 @@ module.exports = function(router) {
       propertyFieldsAndValues.push([key, property[key]]);
     }
 
-    // Add text to the fields portion of queryString.
-    // Add text to the values portion of queryString.
-    // Add parameters to params variable.
     for (let i = 0; i < propertyFieldsAndValues.length; i++) {
       //  add the field (e.g., city) to fieldsString
       fieldsString += `${propertyFieldsAndValues[i][0]}`;
 
-      // add a comma unless this is the last item in the array
+      // add a comma to fieldsString unless this is the last item in the array
       if (i < propertyFieldsAndValues.length - 1) fieldsString += `, `;
 
       // add the value (e.g., 'Vancouver') to the params array
       params.push(propertyFieldsAndValues[i][1]);
 
-      // add a  placeholder (eg $1) to paramsString
+      // add a  placeholder (eg $1) to valuesString
       valuesString += `$${params.length}`;
 
-      // add a comma unless this is the last item in the array
+      // add a comma to valuesString unless this is the last item in the array
       if (i < propertyFieldsAndValues.length - 1) valuesString += `, `;
     }
 
