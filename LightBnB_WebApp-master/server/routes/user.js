@@ -12,7 +12,7 @@ module.exports = function(router) {
       VALUES ($1, $2, $3) 
       RETURNING *;
     `;
-    const params = [user];
+    const params = [user.name, user.email, user.password];
     db.query(text, params, result => {
       const user = result.rows[0];
       if (!user) {
@@ -25,7 +25,6 @@ module.exports = function(router) {
     .catch(e => res.send(e));
   });
 
-
   router.post('/login', (req, res) => {
     const {email, password} = req.body;
     const text = `
@@ -35,13 +34,15 @@ module.exports = function(router) {
     `;
     const params = [email.toLowerCase()];
     db.query(text, params, result => {
+      // if a user is returned && passwords match
       const user = result.rows[0];
-      if (!bcrypt.compareSync(password, user.password)) {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        req.session.userId = user.id;
+        res.send({user: {name: user.name, email: user.email, id: user.id}});
+      } else {
         res.send({error: "error"});
         return;
       }
-      req.session.userId = user.id;
-      res.send({user: {name: user.name, email: user.email, id: user.id}});
     })
     .catch(e => res.send(e));
   });
