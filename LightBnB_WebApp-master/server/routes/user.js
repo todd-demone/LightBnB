@@ -34,8 +34,8 @@ module.exports = function(router) {
     `;
     const params = [email.toLowerCase()];
     db.query(text, params, result => {
-      // if a user is returned && passwords match
       const user = result.rows[0];
+      // if a user is returned && passwords match
       if (user && bcrypt.compareSync(password, user.password)) {
         req.session.userId = user.id;
         res.send({user: {name: user.name, email: user.email, id: user.id}});
