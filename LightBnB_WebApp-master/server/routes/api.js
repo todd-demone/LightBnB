@@ -63,10 +63,10 @@ module.exports = function(router) {
     db.query(text, params, result => {
       const properties = result.rows;
       res.send({properties});
-    })
-    .catch(e => res.send(e));  
-
-  });
+    });  
+  },
+  e => res.send(e)
+  );
 
   router.get('/reservations', (req, res) => {
     const userId = req.session.userId;
@@ -90,9 +90,10 @@ module.exports = function(router) {
     db.query(text, params, result => {
       const reservations = result.rows;
       res.send({reservations});
-    })
-    .catch(e => res.send(e));
-  });
+    });
+  },
+  e => res.send(e)
+  );
 
   router.post('/properties', (req, res) => {
     const userId = req.session.userId;
@@ -139,9 +140,10 @@ module.exports = function(router) {
     db.query(text, params, result => {
       const property = result.rows[0];
       res.send(property);
-    })
-    .catch(e => res.send(e));
-  });
+    });
+  },
+  e => res.send(e)
+  );
 
   return router;
 }

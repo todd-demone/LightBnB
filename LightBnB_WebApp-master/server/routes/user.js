@@ -21,9 +21,10 @@ module.exports = function(router) {
       }
       req.session.userId = user.id;
       res.send("🤗");
-    })
-    .catch(e => res.send(e));
-  });
+    });
+  },
+  e => res.send(e)
+  );
 
   router.post('/login', (req, res) => {
     const {email, password} = req.body;
@@ -43,9 +44,10 @@ module.exports = function(router) {
         res.send({error: "error"});
         return;
       }
-    })
-    .catch(e => res.send(e));
-  });
+    });
+  },
+  e => res.send('myerror', e)
+  );
   
 
   router.post('/logout', (req, res) => {
@@ -73,9 +75,10 @@ module.exports = function(router) {
         return;
       }
       res.send({user: {name: user.name, email: user.email, id: userId}});
-    }))
-    .catch(e => res.send(e));
-  });
+    }));
+  },
+  e => res.send(e)
+  );
 
   return router;
 }

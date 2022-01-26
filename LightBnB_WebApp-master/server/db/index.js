@@ -8,10 +8,10 @@ const pool = new Pool({
 });
 
 module.exports = {
-  query: (text, params, fulfillmentHandler) => {
+  query: (text, params, fulfillmentHandler, rejectionHandler) => {
     return pool
     .query(text, params)
     .then(fulfillmentHandler)
-    .catch(e => console.error(e));
+    .catch(rejectionHandler);
   },
 }
