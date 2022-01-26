@@ -44,7 +44,7 @@ module.exports = function(router) {
         return;
       }
     },
-    e => res.send('myerror', e));
+    e => res.send(e));
   });
   
 
