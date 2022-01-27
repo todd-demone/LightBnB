@@ -6,43 +6,28 @@ module.exports = function(router) {
     const options = req.query;
     const limit = 20;
     const params = [];
-    let text = ``;
     let whereClause = ``;
     let havingClause = ``;
-    const minPrice = options.minimum_price_per_night * 100;
-    const maxPrice = options.maximum_price_per_night * 100;
-    const addWhereOrAnd = () => params.length === 0 ? whereClause += `WHERE ` : whereClause += `AND `;
     
-    if (options.city) {
-      params.push(`%${options.city}%`);
-      whereClause += `WHERE properties.city LIKE $${params.length} `;
-    }
-    if (options.owner_id) {
-      addWhereOrAnd();
-      params.push(`${options.owner_id}`);
-      whereClause += `owner_id = $${params.length} `;
-    }
-    if (minPrice && maxPrice) {
-      addWhereOrAnd();
-      params.push(minPrice, maxPrice);
-      whereClause += `cost_per_night >= $${params.length - 1} AND cost_per_night <= $${params.length} `;
-    } else if (minPrice) {
-      addWhereOrAnd();
-      params.push(minPrice);
-      whereClause += `cost_per_night >= $${params.length} `;
-    } else if (maxPrice) {
-      addWhereOrAnd();
-      params.push(maxPrice);
-      whereClause += `cost_per_night <= $${params.length} `;
-    }
-   if (options.minimum_rating) {
-      params.push(Number(options.minimum_rating));
-      havingClause += `HAVING avg(property_reviews.rating) >= $${params.length} `;
-    }
+    const concatToClause = (option, isWhereOption, isString, message) => {
+      if (option) {
+        if (isWhereOption) {
+          params.length === 0 ? whereClause += `WHERE ` : whereClause += `AND `;
+        }
+        isString ? params.push(`%${option}%`) : params.push(Number(option));
+        isWhereOption ? whereClause += `${message}$${params.length} ` : havingClause += `${message}$${params.length} `;
+      }
+    };
 
+    concatToClause(options.city, true, true, `properties.city LIKE `);
+    concatToClause(options.owner_id, true, false, `owner_id = `);
+    concatToClause(options.minimum_price_per_night * 100, true, false, `cost_per_night >= `);
+    concatToClause(options.maximum_price_per_night * 100, true, false, `cost_per_night <= `);
+    concatToClause(options.minimum_rating, false, false, `HAVING avg(property_reviews.rating) >= `);
+    
     params.push(limit);
 
-    text = `
+    const text = `
       SELECT properties.*, AVG(property_reviews.rating) AS avg_rating
       FROM properties
       JOIN property_reviews ON properties.id = property_id
