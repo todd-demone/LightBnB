@@ -38,11 +38,12 @@ module.exports = function(router) {
       LIMIT $${params.length};
     `;
 
-    db.query(text, params, result => {
+    db.query(text, params)
+    .then(result => {
       const properties = result.rows;
       res.send({properties});
-    },
-    e => res.send(e));  
+    })
+    .catch(e => res.send(e));  
   });
 
   router.get('/reservations', (req, res) => {
@@ -64,11 +65,12 @@ module.exports = function(router) {
       LIMIT $2;
     `;
 
-    db.query(text, params, result => {
+    db.query(text, params)
+    .then(result => {
       const reservations = result.rows;
       res.send({reservations});
-    },
-    e => res.send(e));
+    })
+    .catch(e => res.send(e));
   });
 
   router.post('/properties', (req, res) => {
@@ -113,11 +115,12 @@ module.exports = function(router) {
       RETURNING *;
     `;
 
-    db.query(text, params, result => {
+    db.query(text, params)
+    .then(result => {
       const property = result.rows[0];
       res.send(property);
-    },
-    e => res.send(e));
+    })
+    .catch(e => res.send(e));
   });
 
   return router;

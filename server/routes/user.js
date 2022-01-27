@@ -13,7 +13,8 @@ module.exports = function(router) {
       RETURNING *;
     `;
     const params = [user.name, user.email, user.password];
-    db.query(text, params, result => {
+    db.query(text, params)
+    .then(result => {
       const user = result.rows[0];
       if (!user) {
         res.send({error: "error"});
@@ -21,8 +22,8 @@ module.exports = function(router) {
       }
       req.session.userId = user.id;
       res.send("🤗");
-    }, 
-    e => res.send(e));
+    }) 
+    .catch(e => res.send(e));
   });
 
   router.post('/login', (req, res) => {
@@ -33,7 +34,8 @@ module.exports = function(router) {
       WHERE email=$1;
     `;
     const params = [email.toLowerCase()];
-    db.query(text, params, result => {
+    db.query(text, params)
+    .then(result => {
       const user = result.rows[0];
       // if a user is returned && passwords match
       if (user && bcrypt.compareSync(password, user.password)) {
@@ -43,8 +45,8 @@ module.exports = function(router) {
         res.send({error: "error"});
         return;
       }
-    },
-    e => res.send(e));
+    })
+    .catch(e => res.send(e));
   });
   
 
@@ -66,15 +68,16 @@ module.exports = function(router) {
       WHERE id=$1;
     `;
     const params = [userId];
-    db.query(text, params, result => {
+    db.query(text, params)
+    .then(result => {
       const user = result.rows[0];
       if (!user) {
         res.send({error: "no user with that id"});
         return;
       }
       res.send({user: {name: user.name, email: user.email, id: userId}});
-    },
-    e => res.send(e));
+    })
+    .catch(e => res.send(e));
   });
 
   return router;
