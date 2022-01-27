@@ -1,16 +1,13 @@
-// const database = require('./database');
-const apiRoutes = require('./routes/api.js');
-// const apiRoutes = require('./apiRoutes');
-const userRoutes = require('./routes/user.js');
-// const userRoutes = require('./userRoutes');
-
-const path = require('path');
-
 const express = require('express');
+const path = require('path');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
+const apiRoutes = require('./routes/api.js');
+const userRoutes = require('./routes/user.js');
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(cookieSession({
   name: 'session',
@@ -29,8 +26,6 @@ app.use('/api', apiRouter);
 const userRouter = express.Router();
 userRoutes(userRouter);
 app.use('/users', userRouter);
-
-app.use(express.static(path.join(__dirname, '../public')));
 
 app.get("/test", (req, res) => {
   res.send("🤗");
