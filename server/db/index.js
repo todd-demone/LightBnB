@@ -9,9 +9,11 @@ const pool = new Pool({
 });
 
 module.exports = {
-  query: (text, params, fulfillmentHandler, rejectionHandler) => {
-    return pool.query(text, params)
-    .then(fulfillmentHandler)
-    .catch(rejectionHandler);
+  query: (text, params) => {
+    const start = Date.now();
+    const res = pool.query(text, params);
+    const duration = Date.now() - start;
+    console.log('executed query', { text, duration });
+    return res;
   },
 }
