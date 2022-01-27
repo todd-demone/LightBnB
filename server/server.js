@@ -1,21 +1,18 @@
 const express = require('express');
 const path = require('path');
 const cookieSession = require('cookie-session');
-const bodyParser = require('body-parser');
 const apiRoutes = require('./routes/api.js');
 const userRoutes = require('./routes/user.js');
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, '../public')));
-
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cookieSession({
   name: 'session',
   keys: ['key1']
 }));
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 // /api/endpoints
 const apiRouter = express.Router();
