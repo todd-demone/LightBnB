@@ -80,6 +80,18 @@ npm run start
 ## Project Structure
 
 ```
+├── db
+│   ├── migrations
+│   │   ├── 01_schema.sql
+│   ├── queries
+│   │   ├── 01_single_user.sql
+│   │   ├── 02_avg_length_of_reservation.sql
+│   │   ├── 03_property_listings_by_city.sql
+│   │   ├── 04_most_visited_cities.sql
+│   │   ├── 05_all_my_reservations.sql
+│   ├── seeds
+│   │   ├── 01_seeds.sql
+│   │   ├── 02_seeds.sql
 ├── public
 │   ├── index.html
 │   ├── javascript
@@ -98,34 +110,12 @@ npm run start
 │   └── styles
 ├── sass
 └── server
-    ├── db
-    |   ├── 1_queries
-    |   |   ├── 01_single_user.sql
-    |   |   ├── 02_avg_length_of_reservation.sql
-    |   |   ├── 03_property_listings_by_city.sql
-    |   |   ├── 04_most_visited_cities.sql
-    |   |   └── 05_all_my_reservations.sql
-    |   ├── migrations
-    |   |   └── 01_schema.sql
-    |   ├── seeds
-    |   |   ├── 01_seeds.sql
-    |   |   └── 02_seeds.sql
-    │   └── index.js
+    ├── database
+    │   └── apis.js
+    │   └── connection.js
+    │   └── users.js
     ├── routes
-    │   ├── api.js
-    │   └── user.js
-    └── server.js
+    │   ├── apiRoutes.js
+    │   └── userRoutes.js
+    └── express_server.js
 ```
-
-* `public` contains all of the HTML, CSS, and client side JavaScript. 
-  * `index.html` is the entry point to the application. It's the only html page because this is a single page application.
-  * `javascript` contains all of the client side javascript files.
-    * `index.js` starts up the application by rendering the listings.
-    * `network.js` manages all ajax requests to the server.
-    * `views_manager.js` manages which components appear on screen.
-    * `components` contains all of the individual html components. They are all created using jQuery.
-* `sass` contains all of the sass files. 
-* `server` contains all of the server side and database code.
-  * `server.js` is the entry point to the application. This connects the routes to the database.
-  * `db/index.js` is responsible for communicating with the database including establishing a connection. It also exports an object with a `.query` method that is called whenever one of the routes needs to query the database.
-  * `routes/api.js` and `routes/user.js` are responsible for any HTTP requests to `/api/something` or `/user/something`. `db/index.js` is required in this file so the routes can be connected to the database.
