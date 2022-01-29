@@ -47,9 +47,9 @@ npm install
 ```
 CREATE DATABASE lightbnb;
 \c lightbnb;
-\i server/db/migrations/01_schema.sql;
-\i server/db/seeds/01_seeds.sql;
-\i server/db/seeds/02_seeds.sql;
+\i db/migrations/01_schema.sql;
+\i db/seeds/01_seeds.sql;
+\i db/seeds/02_seeds.sql;
 ```
 
 5. Run the server.
