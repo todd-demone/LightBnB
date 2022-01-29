@@ -14,16 +14,16 @@ module.exports = function(router) {
     `;
     const params = [user.name, user.email, user.password];
     db.query(text, params)
-    .then(result => {
-      const user = result.rows[0];
-      if (!user) {
-        res.send({error: "error"});
-        return;
-      }
-      req.session.userId = user.id;
-      res.send("🤗");
-    }) 
-    .catch(e => res.send(e));
+      .then(result => {
+        const user = result.rows[0];
+        if (!user) {
+          res.send({error: "error"});
+          return;
+        }
+        req.session.userId = user.id;
+        res.send("🤗");
+      })
+      .catch(e => res.send(e));
   });
 
   router.post('/login', (req, res) => {
@@ -35,18 +35,18 @@ module.exports = function(router) {
     `;
     const params = [email.toLowerCase()];
     db.query(text, params)
-    .then(result => {
-      const user = result.rows[0];
-      // if a user is returned && passwords match
-      if (user && bcrypt.compareSync(password, user.password)) {
-        req.session.userId = user.id;
-        res.send({user: {name: user.name, email: user.email, id: user.id}});
-      } else {
-        res.send({error: "error"});
-        return;
-      }
-    })
-    .catch(e => res.send(e));
+      .then(result => {
+        const user = result.rows[0];
+        // if a user is returned && passwords match
+        if (user && bcrypt.compareSync(password, user.password)) {
+          req.session.userId = user.id;
+          res.send({user: {name: user.name, email: user.email, id: user.id}});
+        } else {
+          res.send({error: "error"});
+          return;
+        }
+      })
+      .catch(e => res.send(e));
   });
   
 
@@ -69,16 +69,16 @@ module.exports = function(router) {
     `;
     const params = [userId];
     db.query(text, params)
-    .then(result => {
-      const user = result.rows[0];
-      if (!user) {
-        res.send({error: "no user with that id"});
-        return;
-      }
-      res.send({user: {name: user.name, email: user.email, id: userId}});
-    })
-    .catch(e => res.send(e));
+      .then(result => {
+        const user = result.rows[0];
+        if (!user) {
+          res.send({error: "no user with that id"});
+          return;
+        }
+        res.send({user: {name: user.name, email: user.email, id: userId}});
+      })
+      .catch(e => res.send(e));
   });
 
   return router;
-}
+};

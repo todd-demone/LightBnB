@@ -39,11 +39,11 @@ module.exports = function(router) {
     `;
 
     db.query(text, params)
-    .then(result => {
-      const properties = result.rows;
-      res.send({properties});
-    })
-    .catch(e => res.send(e));  
+      .then(result => {
+        const properties = result.rows;
+        res.send({properties});
+      })
+      .catch(e => res.send(e));
   });
 
   router.get('/reservations', (req, res) => {
@@ -66,11 +66,11 @@ module.exports = function(router) {
     `;
 
     db.query(text, params)
-    .then(result => {
-      const reservations = result.rows;
-      res.send({reservations});
-    })
-    .catch(e => res.send(e));
+      .then(result => {
+        const reservations = result.rows;
+        res.send({reservations});
+      })
+      .catch(e => res.send(e));
   });
 
   router.post('/properties', (req, res) => {
@@ -116,12 +116,12 @@ module.exports = function(router) {
     `;
 
     db.query(text, params)
-    .then(result => {
-      const property = result.rows[0];
-      res.send(property);
-    })
-    .catch(e => res.send(e));
+      .then(result => {
+        const property = result.rows[0];
+        res.send(property);
+      })
+      .catch(e => res.send(e));
   });
 
   return router;
-}
+};
