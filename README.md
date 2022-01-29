@@ -30,7 +30,7 @@ npm install
 
 2. Create a `.env` file in your root folder to store your database-related environment variables. An example file `.env.example` has been included in the root folder of the app.
 
-3. Before proceeding, you may need to set up a password for your user on psql (thte PostgreSQL command-line tool):
+3. Before proceeding, you may need to set up a password for your user on psql (the PostgreSQL command-line tool):
     - Open `psql` on the command line
     - Type `\password`
     - Type your new password, hit Enter, type the password again, hit Enter.
