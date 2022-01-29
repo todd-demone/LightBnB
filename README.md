@@ -9,16 +9,17 @@ I worked on Lighthouse BnB while completing the [Lighthouse Labs Web Development
 The primary objectives of this project were:
 - design a relational database using [database design](https://en.wikipedia.org/wiki/Database_design) best practices, including applying the [normalization rules](https://en.wikipedia.org/wiki/Database_normalization)
 - use SQL and PostgreSQL to create the database and tables and seed the tables
+- create a connection to the database use `pg` and `dotenv`
 - create database queries
-        - functions for user-related queries: 
-            - getUserWithEmail
-            - getUserWithId
-            - addUser
-        - functions for api-related queries:
-            - getAllProperties (including filters for property search)
-            - getAllReservations
-            - addProperty
-- incorporate the database queries into the Node.js/Express backend
+    * functions for user-related queries: 
+        * getUserWithEmail
+        * getUserWithId
+        * addUser
+    * functions for api-related queries:
+        * getAllProperties (including filters for property search)
+        * getAllReservations
+        * addProperty
+- call the db query functions from the corresponding routes.
 
 ## Dependencies
 
