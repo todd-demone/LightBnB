@@ -1,4 +1,6 @@
-# LightBnB WebApp
+# Lighthouse BnB
+
+An Airbnb clone.
 
 ## Purpose
 
