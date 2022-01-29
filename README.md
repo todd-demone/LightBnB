@@ -10,7 +10,15 @@ The primary objectives of this project were:
 - design a relational database using [database design](https://en.wikipedia.org/wiki/Database_design) best practices, including applying the [normalization rules](https://en.wikipedia.org/wiki/Database_normalization)
 - use SQL and PostgreSQL to create the database and tables and seed the tables
 - create database queries
-- incorporate those queries into the Node.js/Express backend
+        - functions for user-related queries: 
+            - getUserWithEmail
+            - getUserWithId
+            - addUser
+        - functions for api-related queries:
+            - getAllProperties (including filters for property search)
+            - getAllReservations
+            - addProperty
+- incorporate the database queries into the Node.js/Express backend
 
 ## Dependencies
 
