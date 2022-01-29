@@ -12,13 +12,13 @@ The primary objectives of this project were:
 - create a connection to the database use `pg` and `dotenv`
 - create database queries
     * functions for user-related queries: 
-        * getUserWithEmail
-        * getUserWithId
-        * addUser
+        * `getUserWithEmail`
+        * `getUserWithId`
+        * `addUser`
     * functions for api-related queries:
-        * getAllProperties (including filters for property search)
-        * getAllReservations
-        * addProperty
+        * `getAllProperties` (including filters for property search)
+        * `getAllReservations`
+        * `addProperty`
 - call the db query functions from the corresponding routes.
 
 ## Dependencies
