@@ -18,7 +18,7 @@ The instructions below assume that the following software is installed on your c
 - [npm](https://www.npmjs.com/) - included with Node.js
 - [PostgreSQL](https://www.postgresql.org/)
 
-## Instructions 
+## Instructions for running the app
 
 1. Clone the repository and install the dependencies via npm:
 
