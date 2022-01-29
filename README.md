@@ -1,6 +1,6 @@
 # Lighthouse BnB
 
-An Airbnb clone.
+This pre-existing Airbnb clone did not have a database to store its data, so I incorporated a database into the backend of this application (more details below).
 
 ## Purpose
 
