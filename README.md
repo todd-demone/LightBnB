@@ -1,6 +1,6 @@
 # Lighthouse BnB
 
-This pre-existing Airbnb clone did not have a database to store its data, so I incorporated one into the backend of this application (more details below).
+This pre-existing Airbnb clone used in-memory objects to store its data, so I incorporated a database into the backend of this application (more details below).
 
 ## Purpose
 
