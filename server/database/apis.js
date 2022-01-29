@@ -1,6 +1,6 @@
 module.exports = (pool) => {
 
-    const getProperties = (options, limit) => {
+    const getAllProperties = (options, limit) => {
       const params = [];
       let whereClause = ``;
       let havingClause = ``;
@@ -41,7 +41,7 @@ module.exports = (pool) => {
 
     };
 
-    const getReservations = (userId, limit) => {
+    const getAllReservations = (userId, limit) => {
       const params = [userId, limit];
       const text = `
         SELECT properties.*, reservations.*, AVG(property_reviews.rating) as avg_rating
@@ -60,7 +60,7 @@ module.exports = (pool) => {
         .catch(error => console.error(error.message));
     };
 
-    const addNewProperty = (property) => {
+    const addProperty = (property) => {
       const params = [];
       let propertyFieldsAndValues = [];
       let fieldsString = ``;
@@ -107,9 +107,9 @@ module.exports = (pool) => {
     };
 
     return {
-      getProperties,
-      getReservations,
-      addNewProperty
+      getAllProperties,
+      getAllReservations,
+      addProperty
     };
 
 };

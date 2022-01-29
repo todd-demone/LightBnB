@@ -9,7 +9,7 @@ module.exports = (dbApis) => {
     const limit = 20;
     
     dbApis
-      .getProperties(options, limit)
+      .getAllProperties(options, limit)
       .then(properties => res.send({properties}))
       .catch(error => res.send(error));
   });
@@ -26,7 +26,7 @@ module.exports = (dbApis) => {
     }
 
     dbApis
-      .getReservations(userId, limit)
+      .getAllReservations(userId, limit)
       .then(reservations => res.send({reservations}))
       .catch(error => res.send(error));
   });
@@ -38,7 +38,7 @@ module.exports = (dbApis) => {
     const property = {...req.body, owner_id: userId};
     
     dbApis
-      .addNewProperty(property)
+      .addProperty(property)
       .then(property => res.send(property))
       .catch(error => res.send(error));
   });

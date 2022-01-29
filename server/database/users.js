@@ -1,6 +1,6 @@
 module.exports = (pool) => {
     
-  const createUser = (user) => {
+  const addUser = (user) => {
     const text = `
       INSERT INTO users (name, email, password) 
       VALUES ($1, $2, $3) 
@@ -14,7 +14,7 @@ module.exports = (pool) => {
       .catch(error => console.error(error.message));
   };
 
-  const getUserByEmail = (email) => {
+  const getUserWithEmail = (email) => {
     const text = `
       SELECT * 
       FROM users 
@@ -28,7 +28,7 @@ module.exports = (pool) => {
       .catch(error => console.error(error.message));
   };
 
-  const getUserById = (userId) => {
+  const getUserWithId = (userId) => {
     const text = `
       SELECT * 
       FROM users
@@ -43,9 +43,9 @@ module.exports = (pool) => {
   };
 
   return {
-    createUser,
-    getUserByEmail,
-    getUserById
+    addUser,
+    getUserWithEmail,
+    getUserWithId
   };
 
 };
