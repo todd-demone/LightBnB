@@ -19,7 +19,7 @@ The primary objectives of this project were:
         * `getAllProperties` (including filters for property search)
         * `getAllReservations`
         * `addProperty`
-- call the db query functions from the corresponding routes.
+- call the db query functions from within the route handler functions and utilize the returned data as needed.
 
 ## Dependencies
 
