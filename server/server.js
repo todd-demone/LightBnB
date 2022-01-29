@@ -3,7 +3,6 @@ const path = require('path');
 const cookieSession = require('cookie-session');
 const apiRoutes = require('./routes/api.js');
 const userRoutes = require('./routes/user.js');
-
 const app = express();
 
 app.use(express.static(path.join(__dirname, '../public')));
