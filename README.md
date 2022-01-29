@@ -58,7 +58,7 @@ npm run start
 6. go to <http://localhost:3000/> in your browser.
 
 7. Click login. Use the following to login as a sample user:
-- email: `tristanjacobs@gmail.com` 
+- email: `jacksonrose@hotmail.com` 
 - password: `password`
 
 ## Npm Dependencies
