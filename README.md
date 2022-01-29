@@ -31,16 +31,16 @@ npm install
 2. Create a `.env` file in your root folder to store your database-related environment variables. An example file `.env.example` has been included in the root folder of the app.
 
 3. Before proceeding, you may need to set up a password for your user on psql (thte PostgreSQL command-line tool):
-  - Open `psql` on the command line
-  - Type `\password`
-  - Type your new password, hit Enter, type the password again, hit Enter.
+    - Open `psql` on the command line
+    - Type `\password`
+    - Type your new password, hit Enter, type the password again, hit Enter.
 
 4. Create and seed the database:
-  - Open `psql` on the command line
-  - create a database
-  - connect to the database
-  - create the tables
-  - seed the tables with some fake data
+    - Open `psql` on the command line
+    - create a database
+    - connect to the database
+    - create the tables
+    - seed the tables with some fake data
 
 ```
 CREATE DATABASE lightbnb;
