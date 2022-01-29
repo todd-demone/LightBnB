@@ -1,5 +1,6 @@
-const { Pool } = require('pg');
 require('dotenv').config();
+
+const { Pool } = require('pg');
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -8,14 +9,6 @@ const pool = new Pool({
   database: process.env.DB_NAME
 });
 
-module.exports = {
-  query: (text, params) => {
-    const start = Date.now();
-    return pool.query(text, params)
-      .then(res => {
-        const duration = Date.now() - start;
-        console.log('executed query', { text, duration, rows: res.rowCount });
-        return res;
-      });
-  },
-};
+console.log(`Connecting to db: ${process.env.DB_NAME}`);
+
+module.exports = pool;
