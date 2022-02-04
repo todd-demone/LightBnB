@@ -24,7 +24,7 @@ module.exports = (pool) => {
       params.push(limit);
 
       const text = `
-        SELECT properties.*, AVG(property_reviews.rating) AS avg_rating
+        SELECT properties.*, AVG(property_reviews.rating) AS average_rating
         FROM properties
         JOIN property_reviews ON properties.id = property_id
         ${whereClause}
